@@ -1,7 +1,7 @@
 # 階段 1：使用 SDK 進行編譯
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["CakeShop.csproj", "./"]
+COPY ["SimpleShop.csproj", "./"]
 RUN dotnet restore "SimpleShop.csproj"
 COPY . .
 WORKDIR "/src/"
