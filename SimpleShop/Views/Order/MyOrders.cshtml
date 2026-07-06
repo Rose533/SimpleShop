@@ -1,0 +1,83 @@
+﻿@model IEnumerable<SimpleShop.Models.Order>
+
+@{
+    ViewData["Title"] = "我的訂單";
+}
+
+<h1>我的訂單</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>訂單編號</th>
+            <th>訂單日期</th>
+            <th>總金額</th>
+            <th>狀態</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.OrderDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@order.TotalAmount.ToString("C")</td>
+                <td>@order.Status</td>
+                <td>
+                    <a asp-controller="Order"
+                       asp-action="Confirmation"
+                       asp-route-id="@order.Id"
+                       class="btn btn-info btn-sm">
+                        查看明細
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*@model IEnumerable<SimpleShop.Models.Product>
+@{
+    ViewData["Title"] = "商品列表";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                }
+                else
+                {
+                    <img src="https://via.placeholder.com/300x200.png?text=No+Image" class="card-img-top" alt="No Image Available" style="height: 200px; object-fit: cover;">
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description?.Substring(0, Math.Min(item.Description.Length, 50))...</p>
+                    <p class="card-text"><strong>價格: @item.Price.ToString("C")</strong></p>
+                    <p class="card-text"><small class="text-muted">庫存: @item.StockQuantity</small></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">查看詳情</a>
+                        @if (item.StockQuantity > 0)
+                        {
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-sm btn-primary">加入購物車</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-danger" disabled>已售罄</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>*@
